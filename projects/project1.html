@@ -368,6 +368,15 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Шаг 1: Импортируем библиотеки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 4: Вычисляем площадь района</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 5: Вычисляем площадь зданий</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 6: Вычисляем долю застроенной территории</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 8: Визуализируем карты и график</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 9: Визуализируем карту застройки</a></li>
 </ul>
             </nav>
         </div>
@@ -386,9 +395,9 @@ document.write(`
 <div class="section" id="id2">
 <h3><strong>Цель:</strong><a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>Скачать пространственные данные о застройке и землепользовании для выбранного района города</p></li>
+<li><p>Визуализировать данные о застройке и землепользовании для выбранного района города</p></li>
 <li><p>Рассчитать долю застроенной территории</p></li>
-<li><p>Визуализировать структуру землепользования</p></li>
+<li><p>Отобразить структуру землепользования</p></li>
 </ol>
 </div>
 <div class="section" id="id3">
@@ -453,6 +462,191 @@ document.write(`
 </ul>
 </div>
 </div>
+</div>
+<div class="section" id="id6">
+<h2>Шаг 1: Импортируем библиотеки<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">osmnx</span> <span class="k">as</span> <span class="nn">ox</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="osm">
+<h2>Шаг 2: Выгружаем данные о застройке и землепользовании из OSM<a class="headerlink" href="#osm" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Определяем имя для поиска</span>
+<span class="n">place_name</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># тут имя рассматриваемого района в кавычках</span>
+
+<span class="c1"># Загружаем границу района</span>
+<span class="n">district</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">buildings</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">landuse</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="utm">
+<h2>Шаг 3: Перепроецируем данные в нужнную UTM-зону<a class="headerlink" href="#utm" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Определяем UTM-зону</span>
+<span class="n">data_crs</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="c1"># Перепроецируем данные </span>
+<span class="n">district_utm</span> <span class="o">=</span> <span class="o">...</span> 
+<span class="n">buildings_utm</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">landuse_utm</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Шаг 4: Вычисляем площадь района<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area_district</span> <span class="o">=</span> <span class="o">...</span>
+
+
+<span class="c1">#Смотрим на результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Площадь района: </span><span class="si">{</span><span class="n">area_district</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> м²&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">area_district</span> <span class="o">=</span> <span class="o">...</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1">#Смотрим на результат</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Площадь района: </span><span class="si">{</span><span class="n">area_district</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> м²&quot;</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: &#39;ellipsis&#39; object is not subscriptable
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Шаг 5: Вычисляем площадь зданий<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings_utm</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">buildings_area</span> <span class="o">=</span> <span class="n">buildings_utm</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1">#Смотрим на результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Площадь застроенной территории: </span><span class="si">{</span><span class="n">buildings_area</span><span class="si">}</span><span class="s2"> м²&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>Шаг 6: Вычисляем долю застроенной территории<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">built_share</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="c1">#Смотрим на результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Площадь застроенной территории: </span><span class="si">{</span><span class="n">built_share</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>Шаг 7: Вычисляем площадь по разным типам землепользования<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landuse_utm</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">landuse_utm</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;landuse&#39;</span><span class="p">)[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Шаг 8: Визуализируем карты и график<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># отсортируем Series по убыванию</span>
+<span class="n">summary_sorted</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">summary_sorted</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># подписи с одной десятичной</span>
+    <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span>       <span class="c1"># стартовый угол</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>       <span class="c1"># убираем подпись оси Y</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Структура землепользования (от большего к меньшему)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>Шаг 9: Визуализируем карту застройки<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib_scalebar.scalebar</span> <span class="kn">import</span> <span class="n">ScaleBar</span> 
+
+<span class="c1"># Создаём карту</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Землепользование — заливка</span>
+<span class="n">landuse_utm</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+    <span class="n">column</span><span class="o">=</span><span class="s1">&#39;landuse&#39;</span><span class="p">,</span> 
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set3&#39;</span><span class="p">,</span>  <span class="c1"># мягкая цветовая палитра</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Здания — серые контуры</span>
+<span class="n">buildings_utm</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Границы района — чёрные</span>
+<span class="n">district_utm</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Добавляем масштабную линейку (в метрах)</span>
+<span class="n">scalebar</span> <span class="o">=</span> <span class="n">ScaleBar</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">scalebar</span><span class="p">)</span>
+
+<span class="c1">#Добавляем заголовок к легенде</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+    <span class="n">legend</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Типы землепользования:&quot;</span><span class="p">)</span>
+
+<span class="c1"># Заголовок и оформление</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">place_name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Найдите решение следующих задач:</p>
+<ul class="simple">
+<li><p>Как можно <strong>одновременно</strong> отобразить <strong>карту</strong> и <strong>график</strong> на одном изображении?</p></li>
+<li><p>Как <strong>добавть значение доли застроенной территории</strong> прямо на карту?</p></li>
+<li><p>Как <strong>синхронизировать цвета</strong> типов землепользования на карте и на круговой диаграмме?</p></li>
+<li><p>Как сделать <strong>всю</strong> информацию на круговой диаграмме читаемой</p></li>
+</ul>
 </div>
 </div>
 
@@ -524,6 +718,15 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Шаг 1: Импортируем библиотеки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 4: Вычисляем площадь района</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 5: Вычисляем площадь зданий</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 6: Вычисляем долю застроенной территории</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 8: Визуализируем карты и график</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 9: Визуализируем карту застройки</a></li>
 </ul>
   </nav></div>
 
