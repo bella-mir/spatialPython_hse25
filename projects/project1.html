@@ -368,15 +368,18 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Шаг 1: Импортируем библиотеки</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 4: Вычисляем площадь района</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 5: Вычисляем площадь зданий</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 6: Вычисляем долю застроенной территории</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 8: Визуализируем карты и график</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 9: Визуализируем карту застройки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Примерный ход работы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 1: Импортируем библиотеки</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 4: Вычисляем площадь района</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 5: Вычисляем площадь зданий</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 6: Вычисляем долю застроенной территории</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 8: Визуализируем карты и график</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаг 9: Визуализируем карту застройки</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -464,7 +467,9 @@ document.write(`
 </div>
 </div>
 <div class="section" id="id6">
-<h2>Шаг 1: Импортируем библиотеки<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<h2>Примерный ход работы<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id7">
+<h3>Шаг 1: Импортируем библиотеки<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">osmnx</span> <span class="k">as</span> <span class="nn">ox</span>
@@ -476,7 +481,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="osm">
-<h2>Шаг 2: Выгружаем данные о застройке и землепользовании из OSM<a class="headerlink" href="#osm" title="Permalink to this heading">#</a></h2>
+<h3>Шаг 2: Выгружаем данные о застройке и землепользовании из OSM<a class="headerlink" href="#osm" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Определяем имя для поиска</span>
@@ -493,7 +498,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="utm">
-<h2>Шаг 3: Перепроецируем данные в нужнную UTM-зону<a class="headerlink" href="#utm" title="Permalink to this heading">#</a></h2>
+<h3>Шаг 3: Перепроецируем данные в нужнную UTM-зону<a class="headerlink" href="#utm" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Определяем UTM-зону</span>
@@ -508,8 +513,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>Шаг 4: Вычисляем площадь района<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id8">
+<h3>Шаг 4: Вычисляем площадь района<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area_district</span> <span class="o">=</span> <span class="o">...</span>
@@ -534,8 +539,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>Шаг 5: Вычисляем площадь зданий<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id9">
+<h3>Шаг 5: Вычисляем площадь зданий<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings_utm</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
@@ -548,8 +553,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>Шаг 6: Вычисляем долю застроенной территории<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id10">
+<h3>Шаг 6: Вычисляем долю застроенной территории<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">built_share</span> <span class="o">=</span> <span class="o">...</span>
@@ -561,8 +566,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>Шаг 7: Вычисляем площадь по разным типам землепользования<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id11">
+<h3>Шаг 7: Вычисляем площадь по разным типам землепользования<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landuse_utm</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
@@ -572,8 +577,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id11">
-<h2>Шаг 8: Визуализируем карты и график<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id12">
+<h3>Шаг 8: Визуализируем карты и график<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -597,8 +602,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="id12">
-<h2>Шаг 9: Визуализируем карту застройки<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id13">
+<h3>Шаг 9: Визуализируем карту застройки<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib_scalebar.scalebar</span> <span class="kn">import</span> <span class="n">ScaleBar</span> 
@@ -643,10 +648,11 @@ document.write(`
 <p>Найдите решение следующих задач:</p>
 <ul class="simple">
 <li><p>Как можно <strong>одновременно</strong> отобразить <strong>карту</strong> и <strong>график</strong> на одном изображении?</p></li>
-<li><p>Как <strong>добавть значение доли застроенной территории</strong> прямо на карту?</p></li>
+<li><p>Как <strong>добавить значение доли застроенной территории</strong> прямо на карту?</p></li>
 <li><p>Как <strong>синхронизировать цвета</strong> типов землепользования на карте и на круговой диаграмме?</p></li>
 <li><p>Как сделать <strong>всю</strong> информацию на круговой диаграмме читаемой</p></li>
 </ul>
+</div>
 </div>
 </div>
 
@@ -718,15 +724,18 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Шаг 1: Импортируем библиотеки</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 4: Вычисляем площадь района</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 5: Вычисляем площадь зданий</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 6: Вычисляем долю застроенной территории</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 8: Визуализируем карты и график</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 9: Визуализируем карту застройки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Примерный ход работы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 1: Импортируем библиотеки</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#osm">Шаг 2: Выгружаем данные о застройке и землепользовании из OSM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utm">Шаг 3: Перепроецируем данные в нужнную UTM-зону</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 4: Вычисляем площадь района</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 5: Вычисляем площадь зданий</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 6: Вычисляем долю застроенной территории</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 7: Вычисляем площадь по разным типам землепользования</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 8: Визуализируем карты и график</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаг 9: Визуализируем карту застройки</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
