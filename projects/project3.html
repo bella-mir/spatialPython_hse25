@@ -1,0 +1,733 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проект III &#8212; Basics of Spatial Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/project3';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="I.Оценка численности населения на основе данных реформы ЖКХ" href="../chapters/realWorldTasks/task1.html" />
+    <link rel="prev" title="Проект II" href="project2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Spatial Analysis Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Введение</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/week0.html">Начало работы</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Материалы занятий</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/week1.html">I. Данные</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/week2.html">II. Инструменты геоанализа (1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/week3.html">III. Инструменты геоанализа (2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/week4.html">IV. Введение в сетевой анализ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Проекты</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="project1.html">Проект I</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project2.html">Проект II</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Проект III</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Реальные задачи</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/realWorldTasks/task1.html">I.Оценка численности населения на основе данных реформы ЖКХ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/spatialPython_hse25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/spatialPython_hse25/issues/new?title=Issue%20on%20page%20%2Fprojects/project3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/projects/project3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Проект III</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Оценка доступности школ и детских садов</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Цель:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Данные:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Требования к итоговому результату:</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Формат сдачи задания:</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#max-10"><strong>Критерии оценивания (max. 10 баллов):</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Шаги работы</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 0. Импортируйте нужные библиотеки</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 1. Подготовка данных</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 2. Получение данных об образовательных учреждениях</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 3. Создание зон доступности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 4. Классификация зданий по категориям доступности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 5. Визуализация результатов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаг 6. Описание результатов</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="iii">
+<h1>Проект III<a class="headerlink" href="#iii" title="Permalink to this heading">#</a></h1>
+<div class="section" id="id1">
+<h2>Оценка доступности школ и детских садов<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id2">
+<h3><strong>Цель:</strong><a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>Проанализировать доступность детских общеобразовательных учреждений для выбранного гордского района. Для этого необходимо посчитать количество человек и долю от всего населения, кто проживает в зоне доступности от детских общеобразовательных учреждений (школ - 500 метров, детских садов - 300 метров). Предлагаем взять любой район Москвы или Санкт-Петербурга*.</p>
+<p>*<em>Примечание: вы можете выполнять задание и для других городов, но в таком случае необходимо самостоятельно найти и подготовить данные для оценки численности населения.</em></p>
+<p><strong>Требуется определить:</strong></p>
+<ol class="arabic simple">
+<li><p>Количество человек в зоне доступности и школ, и детских садов.</p></li>
+<li><p>Количество человек в зоне доступности только школ.</p></li>
+<li><p>Количество человек в зоне доступности только детских садов.</p></li>
+<li><p>Количество человек за пределами зон доступности общеобразовательных учреждений.</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h3><strong>Данные:</strong><a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Для оценки численности населения: <code class="docutils literal notranslate"><span class="pre">msk_mkd.csv</span></code> (Москва) или <code class="docutils literal notranslate"><span class="pre">spb_mkd.csv</span></code> (Санкт-Петербург).</p></li>
+<li><p>Границы административных районов: файл <code class="docutils literal notranslate"><span class="pre">admin_borders.gpkg</span></code> или скачанные из OpenStreetMap.</p></li>
+<li><p>Данные о местоположении школ и детских садов: можно экспортировать из OSM или использовать порталы открытых данных <a class="reference external" href="https://data.mos.ru/">Москвы</a> или <a class="reference external" href="https://data.gov.spb.ru/">Санкт-Петербурга</a>.</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3><strong>Требования к итоговому результату:</strong><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>Результаты представить в виде:</p>
+<ul class="simple">
+<li><p>Графика распределения количества людей по указанным категориям.</p></li>
+<li><p>Карты, на которой будет видно, в какую из категорий попадает каждое здание.</p></li>
+<li><p>Небольшого описания полученных результатов (оценить, насколько хорошая доступность в районе и по каким причинам).</p></li>
+</ul>
+<div class="section" id="id5">
+<h4><strong>Формат сдачи задания:</strong><a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Файл Jupyter Notebook (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>), содержащий весь выполненный анализ, комментарии к коду и результаты.</p></li>
+<li><p>Если Вы работали с Москвой или Санкт-Петербургом, то никаких дополнительных данных или документов прилагать не нужно: все исходники (CSV/GPKG) уже заданы в условии. Для других городов - приложите используемые данные</p></li>
+</ul>
+</div>
+<div class="section" id="max-10">
+<h4><strong>Критерии оценивания (max. 10 баллов):</strong><a class="headerlink" href="#max-10" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>2 балла</strong> – Загрузка и первичная проверка данных</p></li>
+<li><p><strong>2 балла</strong> – Получение и подготовка данных об образовательных учреждениях</p></li>
+<li><p><strong>2 балла</strong> – Классификация зданий и агрегация численности населения (корректно подсчитана суммарная численность людей в каждой категории)</p></li>
+<li><p><strong>2 балла</strong> – Визуализация результатов</p></li>
+<li><p><strong>2 балла</strong> – Выводы и оформление</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4><strong>Шаги работы</strong><a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Шаг 0. Импортируйте нужные библиотеки<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="c1"># другие необходимые</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>Шаг 1. Подготовка данных<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p><strong>Шаг 1.1. Загрузка данных о населении</strong></p>
+<ul class="simple">
+<li><p>Загрузите CSV-файл (<code class="docutils literal notranslate"><span class="pre">msk_mkd.csv</span></code> или <code class="docutils literal notranslate"><span class="pre">spb_mkd.csv</span></code>) с данными о многоквартирных домах и численности населения.</p></li>
+<li><p>Проверьте систему координат. Если необходимо, преобразуйте.</p></li>
+</ul>
+<p><strong>Шаг 1.2. Загрузка границ административных районов</strong></p>
+<ul class="simple">
+<li><p>Загрузите файл <code class="docutils literal notranslate"><span class="pre">admin_borders.gpkg</span></code> с административными границами.</p></li>
+<li><p>Выберите интересующий вас район города (Москва или Санкт-Петербург).</p></li>
+<li><p>Отфильтруйте GeoDataFrame по названию выбранного района.</p></li>
+</ul>
+<p><strong>Шаг 1.3. Обрезка данных по границам района</strong></p>
+<ul class="simple">
+<li><p>Обрежьте GeoDataFrame с населением по границам выбранного района с помощью пространственной операции <code class="docutils literal notranslate"><span class="pre">clip</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>Шаг 2. Получение данных об образовательных учреждениях<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p><strong>Шаг 2.1. Экспорт данных из OpenStreetMap или открытых источников</strong></p>
+<ul class="simple">
+<li><p>Получите данные о местоположении школ и детских садов.</p></li>
+<li><p>Можно использовать библиотеку <code class="docutils literal notranslate"><span class="pre">OSMNx</span></code> для загрузки данных из OSM по тэгам <code class="docutils literal notranslate"><span class="pre">amenity=school</span></code> и <code class="docutils literal notranslate"><span class="pre">amenity=kindergarten</span></code>.</p></li>
+<li><p>Для данных OSM - отфильтруйте на основе типа геометрии</p></li>
+</ul>
+<p><strong>Шаг 2.2. Преобразование данных в GeoDataFrame и проверка координат</strong></p>
+<ul class="simple">
+<li><p>Если точки не имеют геометрии, создайте GeoDataFrame.</p></li>
+<li><p>Убедитесь в системе координат EPSG:4326.</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>Шаг 3. Создание зон доступности<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>В данном задании есть два пути на Ваш выбор: можно определить зону доступности с помощью буферов или с использованием инструментов сетевого анализа</p>
+<p><strong>Шаг 3.1. Определение зон доступности</strong></p>
+<ul class="simple">
+<li><p>Постройте вокруг точек школ радиусом 500 метров.</p></li>
+<li><p>Постройте вокруг точек детских садов радиусом 300 метров.</p></li>
+</ul>
+<p><strong>Шаг 3.2. Объединение в единую зону</strong></p>
+<ul class="simple">
+<li><p>Объедините все зоны для школ в один полигон (union).</p></li>
+<li><p>Объедините все зоны детских садов в один полигон.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Пример объединения:</span>
+<span class="c1"># school_zone = gdf_school_buffer.unary_union</span>
+<span class="c1"># kinder_zone = gdf_kinder_buffer.unary_union</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>Шаг 4. Классификация зданий по категориям доступности<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p><strong>Шаг 4.1. Определение принадлежности к зонам</strong></p>
+<ul class="simple">
+<li><p>Для каждого многоквартирного дома (МКД) определите, попадает ли он в зону школ, в зону детских садов, в обе зоны или не попадает ни в одну.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Пример пространственной проверки:</span>
+<span class="c1"># gdf_pop_district[&#39;in_school&#39;] = gdf_pop_district.within(school_zone)</span>
+<span class="c1"># gdf_pop_district[&#39;in_kinder&#39;] = gdf_pop_district.within(kinder_zone)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Шаг 4.2. Агрегация численности населения по категориям</strong></p>
+<ul class="simple">
+<li><p>Рассчитайте суммарную численность населения для каждой категории:</p>
+<ol class="arabic simple">
+<li><p>В зоне и школ, и детских садов.</p></li>
+<li><p>В зоне только школ.</p></li>
+<li><p>В зоне только детских садов.</p></li>
+<li><p>За пределами зон доступности.</p></li>
+</ol>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Пример агрегации:</span>
+<span class="c1"># categories = {</span>
+<span class="c1">#     &#39;both&#39;: gdf_pop_district[(gdf_pop_district[&#39;in_school&#39;]) &amp; (gdf_pop_district[&#39;in_kinder&#39;])],</span>
+<span class="c1">#     &#39;only_school&#39;: gdf_pop_district[(gdf_pop_district[&#39;in_school&#39;]) &amp; (~gdf_pop_district[&#39;in_kinder&#39;])],</span>
+<span class="c1">#     &#39;only_kinder&#39;: gdf_pop_district[(~gdf_pop_district[&#39;in_school&#39;]) &amp; (gdf_pop_district[&#39;in_kinder&#39;])],</span>
+<span class="c1">#     &#39;none&#39;: gdf_pop_district[(~gdf_pop_district[&#39;in_school&#39;]) &amp; (~gdf_pop_district[&#39;in_kinder&#39;])]</span>
+<span class="c1"># }</span>
+<span class="c1"># pop_counts = {cat: categories[cat][&#39;population&#39;].sum() for cat in categories}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>Шаг 5. Визуализация результатов<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p><strong>Шаг 5.1. Построение графика распределения численности населения</strong></p>
+<ul class="simple">
+<li><p>Постройте график показывающий количество человек или долю в каждой из категорий</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Пример построения графика:</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="c1"># plt.bar(pop_counts.keys(), pop_counts.values())</span>
+<span class="c1"># plt.xlabel(&#39;Категория доступности&#39;)</span>
+<span class="c1"># plt.ylabel(&#39;Численность населения&#39;)</span>
+<span class="c1"># plt.title(&#39;Распределение населения по доступности образовательных учреждений&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Шаг 5.2. Построение карты с категориями зданий</strong></p>
+<ul class="simple">
+<li><p>Создайте карту (в любом известном вам формате), где здания будут раскрашены в зависимости от категории доступности</p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>Шаг 6. Описание результатов<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Проанализируйте полученные данные.</p></li>
+<li><p>Оцените, насколько хорошая доступность образовательных учреждений в выбранном районе.</p></li>
+<li><p>Опишите возможные причины наблюдаемой ситуации (например, густота застройки, удаленность учреждений и т.д.).</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./projects"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="project2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Проект II</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../chapters/realWorldTasks/task1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">I.Оценка численности населения на основе данных реформы ЖКХ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Оценка доступности школ и детских садов</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Цель:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Данные:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Требования к итоговому результату:</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Формат сдачи задания:</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#max-10"><strong>Критерии оценивания (max. 10 баллов):</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Шаги работы</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Шаг 0. Импортируйте нужные библиотеки</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Шаг 1. Подготовка данных</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Шаг 2. Получение данных об образовательных учреждениях</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Шаг 3. Создание зон доступности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Шаг 4. Классификация зданий по категориям доступности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Шаг 5. Визуализация результатов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаг 6. Описание результатов</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bella Mironova
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright © 2025 Bella Mironova.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
