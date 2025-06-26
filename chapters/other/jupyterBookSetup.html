@@ -384,6 +384,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-pages">Часть 2: Публикация на GitHub Pages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#git">Настройка Git на компьютере (один раз)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#git-github">Инициализация git и добавление в GitHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ghp-import">Установка ghp-import</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gh-pages">Публикация в ветку <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code></a></li>
@@ -405,8 +406,8 @@ document.write(`
 <h1>Интерактивные документы на основе Jupyter Book<a class="headerlink" href="#jupyter-book" title="Permalink to this heading">#</a></h1>
 <div class="section" id="c-github-pages">
 <h2>Cоздание и публикация на GitHub Pages<a class="headerlink" href="#c-github-pages" title="Permalink to this heading">#</a></h2>
-<p>Jupyter Books - прекрасный инструмент, которые предоставляет возможность создавать интерактивные документы/книги/веб-сайты/документацию на основе материалов Jupyter Notebooks и Markdown.</p>
-<p>На этой странице вы найдете краткий план, как собрать Jupyter Book и опубликовать его с помощью GitHub Pages</p>
+<p>Jupyter Books — прекрасный инструмент, который предоставляет возможность создавать интерактивные документы, книги, веб-сайты и документацию на основе Jupyter Notebooks и Markdown.</p>
+<p>На этой странице вы найдете краткий план, как собрать Jupyter Book и опубликовать его с помощью GitHub Pages.</p>
 </div>
 <hr class="docutils" />
 <div class="section" id="id1">
@@ -450,13 +451,22 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>.
 </pre></div>
 </div>
-<p>Сайт будет в папке <code class="docutils literal notranslate"><span class="pre">_build/html/</span></code>
-После этого его можно открыть в браузере (локально)</p>
+<p>Сайт будет в папке <code class="docutils literal notranslate"><span class="pre">_build/html/</span></code>. После этого его можно открыть в браузере (локально).</p>
 </div>
 </div>
 <hr class="docutils" />
 <div class="section" id="github-pages">
 <h2>Часть 2: Публикация на GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this heading">#</a></h2>
+<div class="section" id="git">
+<h3>Настройка Git на компьютере (один раз)<a class="headerlink" href="#git" title="Permalink to this heading">#</a></h3>
+<p>Если вы ещё не использовали Git на этом компьютере — выполните базовую настройку:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Ваше Имя&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;your_email@example.com&quot;</span>
+</pre></div>
+</div>
+<p>(опционально — настройте SSH-ключ для GitHub)</p>
+</div>
+<hr class="docutils" />
 <div class="section" id="git-github">
 <h3>Инициализация git и добавление в GitHub<a class="headerlink" href="#git-github" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init
@@ -467,12 +477,14 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <div class="section" id="ghp-import">
 <h3>Установка ghp-import<a class="headerlink" href="#ghp-import" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ghp-import
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <div class="section" id="gh-pages">
 <h3>Публикация в ветку <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code><a class="headerlink" href="#gh-pages" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>-f<span class="w"> </span>_build/html
@@ -561,6 +573,7 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-pages">Часть 2: Публикация на GitHub Pages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#git">Настройка Git на компьютере (один раз)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#git-github">Инициализация git и добавление в GitHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ghp-import">Установка ghp-import</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gh-pages">Публикация в ветку <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code></a></li>
