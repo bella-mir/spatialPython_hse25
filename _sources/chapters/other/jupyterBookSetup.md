@@ -74,6 +74,48 @@ git config --global user.email "your_email@example.com"
 
 ---
 
+---
+
+### Настройка SSH-ключа для GitHub (опционально)
+
+Если вы не хотите каждый раз вводить логин и пароль при `push/pull`, настройте SSH-доступ:
+
+#### 1. Создайте SSH-ключ (если его нет)
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Нажмите Enter, чтобы сохранить в стандартное место (`~/.ssh/id_ed25519`), и при желании задайте пароль.
+
+#### 2. Скопируйте публичный ключ
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Скопируйте весь вывод.
+
+#### 3. Добавьте ключ в GitHub:
+
+- Перейдите в [https://github.com/settings/keys](https://github.com/settings/keys)
+- Нажмите **New SSH key**
+- Вставьте ключ и сохраните
+
+#### 4. Проверьте соединение:
+
+```bash
+ssh -T git@github.com
+```
+
+Если всё настроено правильно, вы увидите приветственное сообщение от GitHub.
+
+Теперь можно клонировать и отправлять изменения через SSH:
+
+```bash
+git clone git@github.com:USERNAME/REPO.git
+```
+
 ### Инициализация git и добавление в GitHub
 
 ```bash
