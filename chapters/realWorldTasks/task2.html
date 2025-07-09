@@ -1,0 +1,1713 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>II. Геокодирование &#8212; Basics of Spatial Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/realWorldTasks/task2';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Интерактивные документы на основе Jupyter Book" href="../other/jupyterBookSetup.html" />
+    <link rel="prev" title="I.Оценка численности населения на основе данных реформы ЖКХ" href="task1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Spatial Analysis Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Введение</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../week0.html">Начало работы</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Материалы занятий</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../week1.html">I. Данные</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week2.html">II. Инструменты геоанализа (1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week3.html">III. Инструменты геоанализа (2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week4.html">IV. Введение в сетевой анализ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week5.html">V. Введение в пространственную статистику (1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week6.html">VI. Веб-карта с Folium</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week7.html">VII. Веб-карта с Folium (II)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Проекты</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../projects/project1.html">Проект I</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projects/project2.html">Проект II</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projects/project3.html">Проект III</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projects/project4.html">Проект IV</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Реальные задачи</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="task1.html">I.Оценка численности населения на основе данных реформы ЖКХ</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">II. Геокодирование</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Другое</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../other/jupyterBookSetup.html">Интерактивные документы на основе Jupyter Book</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/spatialPython_hse25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/spatialPython_hse25/issues/new?title=Issue%20on%20page%20%2Fchapters/realWorldTasks/task2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/realWorldTasks/task2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>II. Геокодирование</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">0. Импортируем библиотеки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. Основы геокодирования</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1 Определение параметров для запроса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2 Отправка запроса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.3 Извлечение ответа</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4 Создаем набор пространственных данных</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2. Геокодирование данных из таблицы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.1 Проходим по каждому адресу из таблицы</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geodataframe">2.2 Создаем GeoDataFrame на основе полученных координат</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3 Сохраняем результат</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3. Функция геокодирования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4. Итог</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="ii">
+<h1>II. Геокодирование<a class="headerlink" href="#ii" title="Permalink to this heading">#</a></h1>
+<p>Простыми словами, <strong>геокодирование</strong> – это процесс, когда мы берём адрес или название места и превращаем его в точку на карте.
+(Если делать наоборот – получать адрес по координатам, это называется <strong>обратное геокодирование</strong>.)</p>
+<p>Чаще всего геокодирование делается с помощью специального сервиса, к которому мы обращаемся через <strong>API</strong>.</p>
+<p>🔗 <strong>API</strong> (application programming interface) – это набор инструкций и стандартов, которые позволяют разным программам взаимодействовать друг с другом.
+Проще говоря, <strong>API – это посредник</strong>, который даёт возможность использовать функционал другой программы.</p>
+<p>–</p>
+<p>Процесс геокодирования можно свести к нескольким шагам:</p>
+<ol class="arabic simple">
+<li><p>Пишем запрос к сервису через API (указываем адрес и другие важные параметры)</p></li>
+<li><p>Получаем ответ</p></li>
+<li><p>Обрабатываем ответ</p></li>
+</ol>
+<p>–</p>
+<p>На <strong>Python</strong> мы отправляем такие запросы с помощью библиотеки <strong>requests</strong>.
+Если запрос выполнен успешно, мы получаем ответ и дальше работаем с ним: например, вытаскиваем координаты.</p>
+<p>Куда именно отправлять запрос и какие параметры указывать – всегда написано в <strong>документации к API</strong> (их много разных; часть можно посмотреть <a class="reference external" href="https://bella-mir.github.io/openSpData/">здесь</a>).</p>
+<p>–</p>
+<p>Здесь мы рассмотрим процесс геокодирования на примере <strong>Yandex API</strong>.</p>
+<div class="section" id="id1">
+<h2>0. Импортируем библиотеки<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Для работ с табличными и пространственными данными</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="c1"># Для запросов к API</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>  <span class="c1"># для задержки между запросами, чтобы не заблокировали</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>1. Основы геокодирования<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Мы рассмотрим основные шаги геокодирования на примере <strong>Yandex API</strong> для одного адреса:
+определим параметры запроса, отправим его, разберём, из каких частей состоит ответ, и научимся извлекать из него координаты.</p>
+<p>Всю информацию о работе с <strong>Yandex API</strong> можно (важно) посмотреть в <a class="reference external" href="https://yandex.ru/maps-api/docs/geocoder-api/index.html">документации</a></p>
+<div class="section" id="id3">
+<h3>1.1 Определение параметров для запроса<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Простыми словами запрос – это сообщение, которое мы отправляем какому-то серверу, чтобы получить или передать информацию.</p>
+<p>Когда мы отправляем запрос, нам нужно объяснить сервису, что именно мы хотим. Для этого мы передаём параметры запроса.</p>
+<p>В нашем случае параметры будут следующими:</p>
+<ul class="simple">
+<li><p>сам <strong>адрес</strong>, который нужно найти</p></li>
+<li><p><strong>API-ключ</strong>, чтобы наш запрос был рассмаотрен</p></li>
+<li><p>в каком <strong>формате</strong> мы хотим получить ответ (JSON или XML)</p></li>
+<li><p>сколько результатов нам нужно (1 или несколько)</p></li>
+<li><p>на каком <strong>языке</strong> хотим получить ответ</p></li>
+</ul>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># Ваш API-ключ Яндекс Геокодера</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="n">API_KEY</span><span class="p">,</span> <span class="c1"># Ключ доступа к API</span>
+    <span class="s1">&#39;geocode&#39;</span><span class="p">:</span> <span class="s1">&#39;Москва, Волхонка, д.12&#39;</span><span class="p">,</span> <span class="c1"># Адрес для геокодирования</span>
+    <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="c1"># Формат ответа</span>
+    <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># Ограничить количество результатов до 1</span>
+    <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="s1">&#39;ru_RU&#39;</span><span class="p">,</span> <span class="c1"># Язык ответа</span>
+<span class="p">}</span>
+
+<span class="c1"># URL для запроса к Яндекс Геокодеру</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://geocode-maps.yandex.ru/1.x/&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>1.2 Отправка запроса<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>GET-запрос чаще всего используется, когда мы хотим получить данные (какой именно конкретный тип запроса нужен важно смотреть в <a class="reference external" href="https://yandex.ru/maps-api/docs/geocoder-api/index.html">документации</a>)</p>
+<p>С помощью библиотеки requests мы отправляем запрос, в котором указываем url и параметры.</p>
+<p>В ответ мы получаем код статуса - он показывает, как обработан наш запрос.</p>
+<p>Основные статусы</p>
+<ul class="simple">
+<li><p><strong>200 OK</strong> – всё прошло успешно, данные получены.</p></li>
+<li><p><strong>400 Bad Request</strong> – неправильный запрос (например, ошибка в параметрах).</p></li>
+<li><p><strong>401 Unauthorized</strong> – нет доступа, нужен правильный API-ключ или токен.</p></li>
+<li><p><strong>403 Forbidden</strong> – доступ запрещён, даже если ключ есть.</p></li>
+<li><p><strong>404 Not Found</strong> – адрес или ресурс не найден.</p></li>
+<li><p><strong>500 Internal Server Error</strong> – ошибка на стороне сервера.</p></li>
+</ul>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Отправляем</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># Проверяем ответ</span>
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Успешный запрос&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ошибка:&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Успешный запрос
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>1.3 Извлечение ответа<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Если запрос прошел успешно, то мы смотрим, что у нас получилось в ответе, и извлекаем из него нужную информацию</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;response&#39;: {&#39;GeoObjectCollection&#39;: {&#39;metaDataProperty&#39;: {&#39;GeocoderResponseMetaData&#39;: {&#39;request&#39;: &#39;Москва, Волхонка, д.12&#39;,
+     &#39;results&#39;: &#39;1&#39;,
+     &#39;found&#39;: &#39;1&#39;}},
+   &#39;featureMember&#39;: [{&#39;GeoObject&#39;: {&#39;metaDataProperty&#39;: {&#39;GeocoderMetaData&#39;: {&#39;precision&#39;: &#39;exact&#39;,
+        &#39;text&#39;: &#39;Россия, Москва, улица Волхонка, 12&#39;,
+        &#39;kind&#39;: &#39;house&#39;,
+        &#39;Address&#39;: {&#39;country_code&#39;: &#39;RU&#39;,
+         &#39;formatted&#39;: &#39;Россия, Москва, улица Волхонка, 12&#39;,
+         &#39;postal_code&#39;: &#39;119019&#39;,
+         &#39;Components&#39;: [{&#39;kind&#39;: &#39;country&#39;, &#39;name&#39;: &#39;Россия&#39;},
+          {&#39;kind&#39;: &#39;province&#39;, &#39;name&#39;: &#39;Центральный федеральный округ&#39;},
+          {&#39;kind&#39;: &#39;province&#39;, &#39;name&#39;: &#39;Москва&#39;},
+          {&#39;kind&#39;: &#39;locality&#39;, &#39;name&#39;: &#39;Москва&#39;},
+          {&#39;kind&#39;: &#39;street&#39;, &#39;name&#39;: &#39;улица Волхонка&#39;},
+          {&#39;kind&#39;: &#39;house&#39;, &#39;name&#39;: &#39;12&#39;}]},
+        &#39;AddressDetails&#39;: {&#39;Country&#39;: {&#39;AddressLine&#39;: &#39;Россия, Москва, улица Волхонка, 12&#39;,
+          &#39;CountryNameCode&#39;: &#39;RU&#39;,
+          &#39;CountryName&#39;: &#39;Россия&#39;,
+          &#39;AdministrativeArea&#39;: {&#39;AdministrativeAreaName&#39;: &#39;Москва&#39;,
+           &#39;Locality&#39;: {&#39;LocalityName&#39;: &#39;Москва&#39;,
+            &#39;Thoroughfare&#39;: {&#39;ThoroughfareName&#39;: &#39;улица Волхонка&#39;,
+             &#39;Premise&#39;: {&#39;PremiseNumber&#39;: &#39;12&#39;,
+              &#39;PostalCode&#39;: {&#39;PostalCodeNumber&#39;: &#39;119019&#39;}}}}}}}}},
+      &#39;name&#39;: &#39;улица Волхонка, 12&#39;,
+      &#39;description&#39;: &#39;Москва, Россия&#39;,
+      &#39;boundedBy&#39;: {&#39;Envelope&#39;: {&#39;lowerCorner&#39;: &#39;37.601088 55.744961&#39;,
+        &#39;upperCorner&#39;: &#39;37.609299 55.749592&#39;}},
+      &#39;uri&#39;: &#39;ymapsbm1://geo?data=Cgg1NjcwOTk5MxI70KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINGD0LvQuNGG0LAg0JLQvtC70YXQvtC90LrQsCwgMTIiCg24axZCFTf9XkI,&#39;,
+      &#39;Point&#39;: {&#39;pos&#39;: &#39;37.605194 55.747277&#39;}}}]}}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Давайте создадим DataFrame, в которому будут сохранены адрес, почтовый индекс и координаты</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Достаем блок GeoObject</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;GeoObjectCollection&#39;</span><span class="p">][</span><span class="s1">&#39;featureMember&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;GeoObject&#39;</span><span class="p">]</span>
+
+<span class="c1"># Разбиваем координаты на долготу и широту</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;Point&#39;</span><span class="p">][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Достаем адрес</span>
+<span class="n">address_meta</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;metaDataProperty&#39;</span><span class="p">][</span><span class="s1">&#39;GeocoderMetaData&#39;</span><span class="p">][</span><span class="s1">&#39;Address&#39;</span><span class="p">]</span>
+<span class="n">components</span> <span class="o">=</span> <span class="n">address_meta</span><span class="p">[</span><span class="s1">&#39;Components&#39;</span><span class="p">]</span>
+
+<span class="c1"># Создаем словарь с нужными полями</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="p">[</span><span class="s1">&#39;formatted&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;postal_code&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">lon</span><span class="p">,</span>
+    <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Создаем DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">result</span><span class="p">])</span>
+
+
+<span class="c1"># Смотрим на результат</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>formatted_address</th>
+      <th>postal_code</th>
+      <th>longitude</th>
+      <th>latitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Россия, Москва, улица Волхонка, 12</td>
+      <td>119019</td>
+      <td>37.605194</td>
+      <td>55.747277</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>1.4 Создаем набор пространственных данных<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>На основе полученного dataFrame мы можем создать geoDataFrame, используя координаты объекта</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Создаем geoDataFrame</span>
+<span class="n">data_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]),</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="c1">#Смотрим на результат</span>
+<span class="n">data_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_11049ca13417cbde03a732daa72277a1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_11049ca13417cbde03a732daa72277a1&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_11049ca13417cbde03a732daa72277a1 = L.map(
+                &quot;map_11049ca13417cbde03a732daa72277a1&quot;,
+                {
+                    center: [55.747277, 37.605194],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_11049ca13417cbde03a732daa72277a1);
+
+            
+
+        
+    
+            var tile_layer_b5e9fd6d05e6c0857740c2d3eaf5f520 = L.tileLayer(
+                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_11049ca13417cbde03a732daa72277a1);
+        
+    
+            map_11049ca13417cbde03a732daa72277a1.fitBounds(
+                [[55.747277, 37.605194], [55.747277, 37.605194]],
+                {}
+            );
+        
+    
+        function geo_json_2376de3d85205cd4c3c134a2eb47d0fe_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_2376de3d85205cd4c3c134a2eb47d0fe_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_2376de3d85205cd4c3c134a2eb47d0fe_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_2376de3d85205cd4c3c134a2eb47d0fe_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_2376de3d85205cd4c3c134a2eb47d0fe_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        geo_json_2376de3d85205cd4c3c134a2eb47d0fe.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_2376de3d85205cd4c3c134a2eb47d0fe_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_2376de3d85205cd4c3c134a2eb47d0fe = L.geoJson(null, {
+                onEachFeature: geo_json_2376de3d85205cd4c3c134a2eb47d0fe_onEachFeature,
+            
+                style: geo_json_2376de3d85205cd4c3c134a2eb47d0fe_styler,
+                pointToLayer: geo_json_2376de3d85205cd4c3c134a2eb47d0fe_pointToLayer
+        });
+
+        function geo_json_2376de3d85205cd4c3c134a2eb47d0fe_add (data) {
+            geo_json_2376de3d85205cd4c3c134a2eb47d0fe
+                .addData(data)
+                .addTo(map_11049ca13417cbde03a732daa72277a1);
+        }
+            geo_json_2376de3d85205cd4c3c134a2eb47d0fe_add({&quot;bbox&quot;: [37.605194, 55.747277, 37.605194, 55.747277], &quot;features&quot;: [{&quot;bbox&quot;: [37.605194, 55.747277, 37.605194, 55.747277], &quot;geometry&quot;: {&quot;coordinates&quot;: [37.605194, 55.747277], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u041c\u043e\u0441\u043a\u0432\u0430, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u043b\u0445\u043e\u043d\u043a\u0430, 12&quot;, &quot;latitude&quot;: 55.747277, &quot;longitude&quot;: 37.605194, &quot;postal_code&quot;: &quot;119019&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_2376de3d85205cd4c3c134a2eb47d0fe.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    let handleObject = feature=&gt;typeof(feature)==&#x27;object&#x27; ? JSON.stringify(feature) : feature;
+    let fields = [&quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let aliases = [&quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let table = &#x27;&lt;table&gt;&#x27; +
+        String(
+        fields.map(
+        (v,i)=&gt;
+        `&lt;tr&gt;
+            &lt;th&gt;${aliases[i]}&lt;/th&gt;
+            
+            &lt;td&gt;${handleObject(layer.feature.properties[v])}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&#x27;&#x27;))
+    +&#x27;&lt;/table&gt;&#x27;;
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>2. Геокодирование данных из таблицы<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>У нас довольно редко возникает задача геокодирования <strong>только одного конкретного адреса</strong>. Намного чаще у нас есть <strong>набор адресов</strong>, например, из таблицы, которые нужно геокодировать.</p>
+<p>Давайте посмотрим на небольшом примере (<strong>df_geocode_sample</strong>), как это можно сделать.</p>
+<p>Изучим имеющийся набор данных</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/df_geocode_sample.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;skip&#39;</span><span class="p">)</span>
+
+<span class="n">data_sample</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6482827</td>
+      <td>обл. Иркутская, г. Братск, ул. 25-летия Братск...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6482828</td>
+      <td>обл. Иркутская, г. Братск, ул. 25-летия Братск...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6482829</td>
+      <td>обл. Иркутская, г. Братск, ул. 25-летия Братск...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6690904</td>
+      <td>обл. Иркутская, г. Братск, ул. 25-летия Братск...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9155620</td>
+      <td>обл. Иркутская, г. Братск, ул. 25-летия Братск...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>6482906</td>
+      <td>обл. Иркутская, г. Братск, ул. Студенческая, д...</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>9031632</td>
+      <td>обл. Иркутская, г. Братск, ул. Студенческая, д...</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>9314793</td>
+      <td>обл. Иркутская, г. Братск, ул. Студенческая, д...</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>9314801</td>
+      <td>обл. Иркутская, г. Братск, ул. Студенческая, д...</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>6685100</td>
+      <td>обл. Иркутская, г. Братск, ул. Студенческая, д...</td>
+    </tr>
+  </tbody>
+</table>
+<p>73 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Наша задача остаётся той же, но теперь нам нужно обработать все адреса: отправить для каждого запрос, получить ответ и сохранить координаты.</p>
+<div class="section" id="id8">
+<h3>2.1 Проходим по каждому адресу из таблицы<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Создаем пустой список для результатов</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># URL для Яндекс Геокодера</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://geocode-maps.yandex.ru/1.x/&#39;</span>
+
+<span class="c1"># Общие параметры</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="n">API_KEY</span><span class="p">,</span> <span class="c1"># Ключ доступа к API</span>
+    <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="c1"># Формат ответа</span>
+    <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># Ограничить количество результатов до 1</span>
+    <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="s1">&#39;ru_RU&#39;</span><span class="p">,</span> <span class="c1"># Язык ответа</span>
+<span class="p">}</span>
+
+<span class="c1"># Проходим по каждой строке DataFrame</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data_sample</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Создаём копию общих параметров и добавляем адрес</span>
+    <span class="n">params_request</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">params_request</span><span class="p">[</span><span class="s1">&#39;geocode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">address</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params_request</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing id </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> - status </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="c1"># Достаем блок GeoObject</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;GeoObjectCollection&#39;</span><span class="p">][</span><span class="s1">&#39;featureMember&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;GeoObject&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Разбиваем координаты на долготу и широту</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;Point&#39;</span><span class="p">][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Достаем адрес</span>
+        <span class="n">address_meta</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;metaDataProperty&#39;</span><span class="p">][</span><span class="s1">&#39;GeocoderMetaData&#39;</span><span class="p">][</span><span class="s1">&#39;Address&#39;</span><span class="p">]</span>
+        <span class="n">components</span> <span class="o">=</span> <span class="n">address_meta</span><span class="p">[</span><span class="s1">&#39;Components&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Создаем словарь с нужными полями</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;input_address&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span>
+            <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="p">[</span><span class="s1">&#39;formatted&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;postal_code&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">lon</span><span class="p">,</span>
+            <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span>
+            <span class="p">}</span>
+        
+        <span class="c1"># Добавлем результат в список</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ошибка запроса для id </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;input_address&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span>
+            <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># Задержка, чтобы избежать превышения лимитов API</span>
+
+<span class="c1"># Создаем финальный DataFrame</span>
+<span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing id 6482827 - status 200
+Processing id 6482828 - status 200
+Processing id 6482829 - status 200
+Processing id 6690904 - status 200
+Processing id 9155620 - status 200
+Processing id 9155592 - status 200
+Processing id 6677977 - status 200
+Processing id 6482841 - status 200
+Processing id 6482819 - status 200
+Processing id 8939469 - status 200
+Processing id 8939470 - status 200
+Processing id 6685120 - status 200
+Processing id 8939471 - status 200
+Processing id 6482727 - status 200
+Processing id 9049835 - status 200
+Processing id 9030256 - status 200
+Processing id 9049836 - status 200
+Processing id 9321126 - status 200
+Processing id 9323906 - status 200
+Processing id 9323908 - status 200
+Processing id 6482860 - status 200
+Processing id 6482861 - status 200
+Processing id 6482862 - status 200
+Processing id 6482863 - status 200
+Processing id 6690905 - status 200
+Processing id 6482867 - status 200
+Processing id 6704186 - status 200
+Processing id 6482868 - status 200
+Processing id 6482864 - status 200
+Processing id 9114502 - status 200
+Processing id 6482865 - status 200
+Processing id 6482866 - status 200
+Processing id 8939472 - status 200
+Processing id 8939473 - status 200
+Processing id 8939474 - status 200
+Processing id 8939475 - status 200
+Processing id 8939476 - status 200
+Processing id 8939477 - status 200
+Processing id 8939478 - status 200
+Processing id 8939479 - status 200
+Processing id 8939480 - status 200
+Processing id 8939481 - status 200
+Processing id 6721647 - status 200
+Processing id 9155597 - status 200
+Processing id 6482851 - status 200
+Processing id 8925320 - status 200
+Processing id 8925321 - status 200
+Processing id 8951561 - status 200
+Processing id 6554125 - status 200
+Processing id 6554126 - status 200
+Processing id 7949790 - status 200
+Processing id 7949802 - status 200
+Processing id 7949806 - status 200
+Processing id 7949793 - status 200
+Processing id 7949810 - status 200
+Processing id 7742330 - status 200
+Processing id 7742331 - status 200
+Processing id 7643331 - status 200
+Processing id 7643334 - status 200
+Processing id 6482903 - status 200
+Processing id 9114510 - status 200
+Processing id 6482904 - status 200
+Processing id 7643335 - status 200
+Processing id 9126304 - status 200
+Processing id 6483098 - status 200
+Processing id 7643330 - status 200
+Processing id 7643340 - status 200
+Processing id 6482905 - status 200
+Processing id 6482906 - status 200
+Processing id 9031632 - status 200
+Processing id 9314793 - status 200
+Processing id 9314801 - status 200
+Processing id 6685100 - status 200
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="geodataframe">
+<h3>2.2 Создаем GeoDataFrame на основе полученных координат<a class="headerlink" href="#geodataframe" title="Permalink to this heading">#</a></h3>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Убираем строки с пустыми координатами</span>
+<span class="n">final_df_cleaned</span> <span class="o">=</span> <span class="n">final_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
+
+<span class="c1">#Создаем geoDataFrame</span>
+<span class="n">final_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">final_df_cleaned</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">final_df_cleaned</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">final_df_cleaned</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]),</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="c1">#Смотрим на результат</span>
+<span class="n">final_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_de8eb820e7ad8b58587ae9d52fe2c476 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_de8eb820e7ad8b58587ae9d52fe2c476&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_de8eb820e7ad8b58587ae9d52fe2c476 = L.map(
+                &quot;map_de8eb820e7ad8b58587ae9d52fe2c476&quot;,
+                {
+                    center: [56.228432999999995, 101.7384685],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_de8eb820e7ad8b58587ae9d52fe2c476);
+
+            
+
+        
+    
+            var tile_layer_7bba1c4e75511927350162ed906ecb1c = L.tileLayer(
+                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_de8eb820e7ad8b58587ae9d52fe2c476);
+        
+    
+            map_de8eb820e7ad8b58587ae9d52fe2c476.fitBounds(
+                [[56.146473, 101.599638], [56.310393, 101.877299]],
+                {}
+            );
+        
+    
+        function geo_json_d0bb93933187e3476871532c15942103_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_d0bb93933187e3476871532c15942103_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_d0bb93933187e3476871532c15942103_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_d0bb93933187e3476871532c15942103_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_d0bb93933187e3476871532c15942103_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        geo_json_d0bb93933187e3476871532c15942103.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_d0bb93933187e3476871532c15942103_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_d0bb93933187e3476871532c15942103 = L.geoJson(null, {
+                onEachFeature: geo_json_d0bb93933187e3476871532c15942103_onEachFeature,
+            
+                style: geo_json_d0bb93933187e3476871532c15942103_styler,
+                pointToLayer: geo_json_d0bb93933187e3476871532c15942103_pointToLayer
+        });
+
+        function geo_json_d0bb93933187e3476871532c15942103_add (data) {
+            geo_json_d0bb93933187e3476871532c15942103
+                .addData(data)
+                .addTo(map_de8eb820e7ad8b58587ae9d52fe2c476);
+        }
+            geo_json_d0bb93933187e3476871532c15942103_add({&quot;bbox&quot;: [101.599638, 56.146473, 101.877299, 56.310393], &quot;features&quot;: [{&quot;bbox&quot;: [101.714129, 56.296829, 101.714129, 56.296829], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.714129, 56.296829], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 13\u0411&quot;, &quot;id&quot;: 6482827, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 13 \&quot;\u0411\&quot;&quot;, &quot;latitude&quot;: 56.296829, &quot;longitude&quot;: 101.714129, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.715323, 56.296814, 101.715323, 56.296814], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.715323, 56.296814], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 15\u0411&quot;, &quot;id&quot;: 6482828, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 15 \&quot;\u0411\&quot;&quot;, &quot;latitude&quot;: 56.296814, &quot;longitude&quot;: 101.715323, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.715692, 56.29555, 101.715692, 56.29555], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.715692, 56.29555], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;2&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 17&quot;, &quot;id&quot;: 6482829, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 17&quot;, &quot;latitude&quot;: 56.29555, &quot;longitude&quot;: 101.715692, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.716482, 56.296834, 101.716482, 56.296834], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.716482, 56.296834], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;3&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 19\u0411&quot;, &quot;id&quot;: 6690904, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 19 \&quot;\u0411\&quot;&quot;, &quot;latitude&quot;: 56.296834, &quot;longitude&quot;: 101.716482, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.720057, 56.294446, 101.720057, 56.294446], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.720057, 56.294446], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;4&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 20&quot;, &quot;id&quot;: 9155620, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 20&quot;, &quot;latitude&quot;: 56.294446, &quot;longitude&quot;: 101.720057, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.720057, 56.294446, 101.720057, 56.294446], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.720057, 56.294446], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;5&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, 20&quot;, &quot;id&quot;: 9155592, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 25-\u043b\u0435\u0442\u0438\u044f \u0411\u0440\u0430\u0442\u0441\u043a\u0433\u044d\u0441\u0441\u0442\u0440\u043e\u044f, \u0434. 20&quot;, &quot;latitude&quot;: 56.294446, &quot;longitude&quot;: 101.720057, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.726885, 56.28964, 101.726885, 56.28964], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.726885, 56.28964], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;6&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, 2-\u044f \u041f\u0430\u0440\u043a\u043e\u0432\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 2&quot;, &quot;id&quot;: 6677977, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 2-\u044f \u041f\u0430\u0440\u043a\u043e\u0432\u0430\u044f, \u0434. 2&quot;, &quot;latitude&quot;: 56.28964, &quot;longitude&quot;: 101.726885, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.727154, 56.290799, 101.727154, 56.290799], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.727154, 56.290799], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;7&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, 2-\u044f \u041f\u0430\u0440\u043a\u043e\u0432\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 10&quot;, &quot;id&quot;: 6482841, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 2-\u044f \u041f\u0430\u0440\u043a\u043e\u0432\u0430\u044f, \u0434. 10&quot;, &quot;latitude&quot;: 56.290799, &quot;longitude&quot;: 101.727154, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.599638, 56.177997, 101.599638, 56.177997], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.599638, 56.177997], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;8&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, 4&quot;, &quot;id&quot;: 6482819, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, \u0434. 4&quot;, &quot;latitude&quot;: 56.177997, &quot;longitude&quot;: 101.599638, &quot;postal_code&quot;: &quot;665732&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.601803, 56.178333, 101.601803, 56.178333], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.601803, 56.178333], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;9&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, 8&quot;, &quot;id&quot;: 8939469, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, \u0434. 8&quot;, &quot;latitude&quot;: 56.178333, &quot;longitude&quot;: 101.601803, &quot;postal_code&quot;: &quot;665732&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.602019, 56.178789, 101.602019, 56.178789], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.602019, 56.178789], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;10&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, 10&quot;, &quot;id&quot;: 8939470, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, \u0434. 10&quot;, &quot;latitude&quot;: 56.178789, &quot;longitude&quot;: 101.602019, &quot;postal_code&quot;: &quot;665732&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.600591, 56.178874, 101.600591, 56.178874], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.600591, 56.178874], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;11&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, 12&quot;, &quot;id&quot;: 6685120, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, \u0434. 12&quot;, &quot;latitude&quot;: 56.178874, &quot;longitude&quot;: 101.600591, &quot;postal_code&quot;: &quot;665732&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.601642, 56.179636, 101.601642, 56.179636], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.601642, 56.179636], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;12&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, 14&quot;, &quot;id&quot;: 8939471, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. 40 \u043b\u0435\u0442 \u041f\u043e\u0431\u0435\u0434\u044b, \u0434. 14&quot;, &quot;latitude&quot;: 56.179636, &quot;longitude&quot;: 101.601642, &quot;postal_code&quot;: &quot;665732&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.877299, 56.283525, 101.877299, 56.283525], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.877299, 56.283525], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;13&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0410\u043d\u0433\u0430\u0440\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 47&quot;, &quot;id&quot;: 6482727, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0410\u043d\u0433\u0430\u0440\u0441\u043a\u0430\u044f, \u0434. 47&quot;, &quot;latitude&quot;: 56.283525, &quot;longitude&quot;: 101.877299, &quot;postal_code&quot;: &quot;665714&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.851131, 56.280916, 101.851131, 56.280916], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.851131, 56.280916], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;14&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 3&quot;, &quot;id&quot;: 9049835, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 3&quot;, &quot;latitude&quot;: 56.280916, &quot;longitude&quot;: 101.851131, &quot;postal_code&quot;: &quot;665703&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.85167, 56.281006, 101.85167, 56.281006], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.85167, 56.281006], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;15&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 5&quot;, &quot;id&quot;: 9030256, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 5&quot;, &quot;latitude&quot;: 56.281006, &quot;longitude&quot;: 101.85167, &quot;postal_code&quot;: &quot;665703&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.852263, 56.280571, 101.852263, 56.280571], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.852263, 56.280571], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;16&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 6&quot;, &quot;id&quot;: 9049836, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 6&quot;, &quot;latitude&quot;: 56.280571, &quot;longitude&quot;: 101.852263, &quot;postal_code&quot;: &quot;665703&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.857194, 56.280941, 101.857194, 56.280941], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.857194, 56.280941], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;17&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 20\u0410&quot;, &quot;id&quot;: 9321126, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 20\u0410&quot;, &quot;latitude&quot;: 56.280941, &quot;longitude&quot;: 101.857194, &quot;postal_code&quot;: &quot;665714&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.857581, 56.281041, 101.857581, 56.281041], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.857581, 56.281041], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;18&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 22\u0410&quot;, &quot;id&quot;: 9323906, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 22\u0410&quot;, &quot;latitude&quot;: 56.281041, &quot;longitude&quot;: 101.857581, &quot;postal_code&quot;: &quot;665714&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.857958, 56.281141, 101.857958, 56.281141], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.857958, 56.281141], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;19&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c, \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 24\u0410&quot;, &quot;id&quot;: 9323908, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0411\u0430\u0439\u043a\u0430\u043b\u044c\u0441\u043a\u0430\u044f, \u0434. 24\u0410&quot;, &quot;latitude&quot;: 56.281141, &quot;longitude&quot;: 101.857958, &quot;postal_code&quot;: &quot;665714&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.708227, 56.295065, 101.708227, 56.295065], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.708227, 56.295065], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;20&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, 22&quot;, &quot;id&quot;: 6482860, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u043f\u0435\u0440. \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439, \u0434. 22&quot;, &quot;latitude&quot;: 56.295065, &quot;longitude&quot;: 101.708227, &quot;postal_code&quot;: &quot;665712&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.709332, 56.29523, 101.709332, 56.29523], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.709332, 56.29523], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;21&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, 26&quot;, &quot;id&quot;: 6482861, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u043f\u0435\u0440. \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439, \u0434. 26&quot;, &quot;latitude&quot;: 56.29523, &quot;longitude&quot;: 101.709332, &quot;postal_code&quot;: &quot;665712&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.709673, 56.294511, 101.709673, 56.294511], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.709673, 56.294511], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;22&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, 28&quot;, &quot;id&quot;: 6482862, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u043f\u0435\u0440. \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439, \u0434. 28&quot;, &quot;latitude&quot;: 56.294511, &quot;longitude&quot;: 101.709673, &quot;postal_code&quot;: &quot;665712&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.710374, 56.294975, 101.710374, 56.294975], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.710374, 56.294975], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;23&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, 30&quot;, &quot;id&quot;: 6482863, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u043f\u0435\u0440. \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439, \u0434. 30&quot;, &quot;latitude&quot;: 56.294975, &quot;longitude&quot;: 101.710374, &quot;postal_code&quot;: &quot;665712&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.710733, 56.294411, 101.710733, 56.294411], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.710733, 56.294411], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;24&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, 34&quot;, &quot;id&quot;: 6690905, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u043f\u0435\u0440. \u0411\u0440\u0430\u0442\u0441\u043a\u0438\u0439, \u0434. 34&quot;, &quot;latitude&quot;: 56.294411, &quot;longitude&quot;: 101.710733, &quot;postal_code&quot;: &quot;665712&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.717129, 56.290654, 101.717129, 56.290654], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.717129, 56.290654], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;25&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 3&quot;, &quot;id&quot;: 6482867, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 3&quot;, &quot;latitude&quot;: 56.290654, &quot;longitude&quot;: 101.717129, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.717919, 56.290614, 101.717919, 56.290614], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.717919, 56.290614], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;26&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 4&quot;, &quot;id&quot;: 6704186, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 4&quot;, &quot;latitude&quot;: 56.290614, &quot;longitude&quot;: 101.717919, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.717309, 56.291484, 101.717309, 56.291484], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.717309, 56.291484], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;27&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 9&quot;, &quot;id&quot;: 6482868, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 9&quot;, &quot;latitude&quot;: 56.291484, &quot;longitude&quot;: 101.717309, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.71818, 56.291713, 101.71818, 56.291713], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.71818, 56.291713], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;28&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 12&quot;, &quot;id&quot;: 6482864, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 12&quot;, &quot;latitude&quot;: 56.291713, &quot;longitude&quot;: 101.71818, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.71818, 56.291713, 101.71818, 56.291713], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.71818, 56.291713], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;29&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 12&quot;, &quot;id&quot;: 9114502, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 12&quot;, &quot;latitude&quot;: 56.291713, &quot;longitude&quot;: 101.71818, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.718243, 56.292038, 101.718243, 56.292038], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.718243, 56.292038], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;30&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 14&quot;, &quot;id&quot;: 6482865, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 14&quot;, &quot;latitude&quot;: 56.292038, &quot;longitude&quot;: 101.718243, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.718656, 56.293847, 101.718656, 56.293847], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.718656, 56.293847], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;31&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f \u0443\u043b\u0438\u0446\u0430, 22&quot;, &quot;id&quot;: 6482866, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u0435\u0441\u0435\u043d\u043d\u044f\u044f, \u0434. 22&quot;, &quot;latitude&quot;: 56.293847, &quot;longitude&quot;: 101.718656, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.625887, 56.170245, 101.625887, 56.170245], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.625887, 56.170245], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;32&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 2&quot;, &quot;id&quot;: 8939472, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 2&quot;, &quot;latitude&quot;: 56.170245, &quot;longitude&quot;: 101.625887, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.627001, 56.171713, 101.627001, 56.171713], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.627001, 56.171713], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;33&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 3&quot;, &quot;id&quot;: 8939473, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 3&quot;, &quot;latitude&quot;: 56.171713, &quot;longitude&quot;: 101.627001, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.627163, 56.17016, 101.627163, 56.17016], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.627163, 56.17016], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;34&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 4&quot;, &quot;id&quot;: 8939474, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 4&quot;, &quot;latitude&quot;: 56.17016, &quot;longitude&quot;: 101.627163, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.626192, 56.169734, 101.626192, 56.169734], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.626192, 56.169734], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;35&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 6&quot;, &quot;id&quot;: 8939475, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 6&quot;, &quot;latitude&quot;: 56.169734, &quot;longitude&quot;: 101.626192, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.62692, 56.169634, 101.62692, 56.169634], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.62692, 56.169634], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;36&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 8&quot;, &quot;id&quot;: 8939476, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 8&quot;, &quot;latitude&quot;: 56.169634, &quot;longitude&quot;: 101.62692, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.627639, 56.169533, 101.627639, 56.169533], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.627639, 56.169533], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;37&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 10&quot;, &quot;id&quot;: 8939477, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 10&quot;, &quot;latitude&quot;: 56.169533, &quot;longitude&quot;: 101.627639, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.629489, 56.169829, 101.629489, 56.169829], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.629489, 56.169829], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;38&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 12&quot;, &quot;id&quot;: 8939478, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 12&quot;, &quot;latitude&quot;: 56.169829, &quot;longitude&quot;: 101.629489, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.630998, 56.169007, 101.630998, 56.169007], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.630998, 56.169007], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;39&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 14&quot;, &quot;id&quot;: 8939479, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 14&quot;, &quot;latitude&quot;: 56.169007, &quot;longitude&quot;: 101.630998, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.629426, 56.169233, 101.629426, 56.169233], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.629426, 56.169233], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;40&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 16&quot;, &quot;id&quot;: 8939480, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 16&quot;, &quot;latitude&quot;: 56.169233, &quot;longitude&quot;: 101.629426, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.632292, 56.168411, 101.632292, 56.168411], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.632292, 56.168411], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;41&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, 18&quot;, &quot;id&quot;: 8939481, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0412\u043e\u0437\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434. 18&quot;, &quot;latitude&quot;: 56.168411, &quot;longitude&quot;: 101.632292, &quot;postal_code&quot;: &quot;665724&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.731224, 56.291998, 101.731224, 56.291998], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.731224, 56.291998], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;42&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 61\u0410&quot;, &quot;id&quot;: 6721647, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 61\u0410&quot;, &quot;latitude&quot;: 56.291998, &quot;longitude&quot;: 101.731224, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.731224, 56.291998, 101.731224, 56.291998], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.731224, 56.291998], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;43&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 61\u0410&quot;, &quot;id&quot;: 9155597, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 61\u0410&quot;, &quot;latitude&quot;: 56.291998, &quot;longitude&quot;: 101.731224, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.732068, 56.291703, 101.732068, 56.291703], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.732068, 56.291703], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;44&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 65&quot;, &quot;id&quot;: 6482851, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 65&quot;, &quot;latitude&quot;: 56.291703, &quot;longitude&quot;: 101.732068, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.735392, 56.290534, 101.735392, 56.290534], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.735392, 56.290534], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;45&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 72&quot;, &quot;id&quot;: 8925320, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 72&quot;, &quot;latitude&quot;: 56.290534, &quot;longitude&quot;: 101.735392, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.735796, 56.291489, 101.735796, 56.291489], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.735796, 56.291489], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;46&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 75&quot;, &quot;id&quot;: 8925321, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 75&quot;, &quot;latitude&quot;: 56.291489, &quot;longitude&quot;: 101.735796, &quot;postal_code&quot;: null}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.737188, 56.291299, 101.737188, 56.291299], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.737188, 56.291299], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;47&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u041f\u0430\u0434\u0443\u043d, \u0443\u043b\u0438\u0446\u0430 \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, 79&quot;, &quot;id&quot;: 8951561, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0413\u0438\u0434\u0440\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439, \u0434. 79&quot;, &quot;latitude&quot;: 56.291299, &quot;longitude&quot;: 101.737188, &quot;postal_code&quot;: &quot;665702&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.642057, 56.14731, 101.642057, 56.14731], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.642057, 56.14731], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;48&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 18&quot;, &quot;id&quot;: 6554125, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 18&quot;, &quot;latitude&quot;: 56.14731, &quot;longitude&quot;: 101.642057, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.642802, 56.14728, 101.642802, 56.14728], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.642802, 56.14728], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;49&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 20&quot;, &quot;id&quot;: 6554126, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 20&quot;, &quot;latitude&quot;: 56.14728, &quot;longitude&quot;: 101.642802, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.644455, 56.147691, 101.644455, 56.147691], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.644455, 56.147691], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;50&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 22&quot;, &quot;id&quot;: 7949790, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 22&quot;, &quot;latitude&quot;: 56.147691, &quot;longitude&quot;: 101.644455, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.644851, 56.148965, 101.644851, 56.148965], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.644851, 56.148965], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;51&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 25&quot;, &quot;id&quot;: 7949802, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 25&quot;, &quot;latitude&quot;: 56.148965, &quot;longitude&quot;: 101.644851, &quot;postal_code&quot;: &quot;665719&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.646836, 56.148684, 101.646836, 56.148684], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.646836, 56.148684], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;52&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 27&quot;, &quot;id&quot;: 7949806, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 27&quot;, &quot;latitude&quot;: 56.148684, &quot;longitude&quot;: 101.646836, &quot;postal_code&quot;: &quot;665719&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.646171, 56.147149, 101.646171, 56.147149], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.646171, 56.147149], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;53&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 28&quot;, &quot;id&quot;: 7949793, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 28&quot;, &quot;latitude&quot;: 56.147149, &quot;longitude&quot;: 101.646171, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.648983, 56.147646, 101.648983, 56.147646], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.648983, 56.147646], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;54&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 29&quot;, &quot;id&quot;: 7949810, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 29&quot;, &quot;latitude&quot;: 56.147646, &quot;longitude&quot;: 101.648983, &quot;postal_code&quot;: &quot;665719&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.646971, 56.146758, 101.646971, 56.146758], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.646971, 56.146758], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;55&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 30&quot;, &quot;id&quot;: 7742330, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 30&quot;, &quot;latitude&quot;: 56.146758, &quot;longitude&quot;: 101.646971, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.646988, 56.146473, 101.646988, 56.146473], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.646988, 56.146473], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;56&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 32&quot;, &quot;id&quot;: 7742331, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0430\u044f, \u0434. 32&quot;, &quot;latitude&quot;: 56.146473, &quot;longitude&quot;: 101.646988, &quot;postal_code&quot;: &quot;665729&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.755658, 56.30503, 101.755658, 56.30503], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.755658, 56.30503], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;57&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 3&quot;, &quot;id&quot;: 7643331, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 3&quot;, &quot;latitude&quot;: 56.30503, &quot;longitude&quot;: 101.755658, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.755972, 56.305469, 101.755972, 56.305469], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.755972, 56.305469], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;58&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 5&quot;, &quot;id&quot;: 7643334, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 5&quot;, &quot;latitude&quot;: 56.305469, &quot;longitude&quot;: 101.755972, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.760697, 56.305219, 101.760697, 56.305219], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.760697, 56.305219], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;59&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 6&quot;, &quot;id&quot;: 6482903, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 6&quot;, &quot;latitude&quot;: 56.305219, &quot;longitude&quot;: 101.760697, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.762179, 56.305584, 101.762179, 56.305584], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.762179, 56.305584], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;60&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 8&quot;, &quot;id&quot;: 9114510, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 8.&quot;, &quot;latitude&quot;: 56.305584, &quot;longitude&quot;: 101.762179, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.762179, 56.305584, 101.762179, 56.305584], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.762179, 56.305584], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;61&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 8&quot;, &quot;id&quot;: 6482904, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 8&quot;, &quot;latitude&quot;: 56.305584, &quot;longitude&quot;: 101.762179, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.757077, 56.305669, 101.757077, 56.305669], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.757077, 56.305669], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;62&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 9&quot;, &quot;id&quot;: 7643335, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 9&quot;, &quot;latitude&quot;: 56.305669, &quot;longitude&quot;: 101.757077, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.76359, 56.306273, 101.76359, 56.306273], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.76359, 56.306273], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;63&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 10&quot;, &quot;id&quot;: 9126304, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 10.&quot;, &quot;latitude&quot;: 56.306273, &quot;longitude&quot;: 101.76359, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.76359, 56.306273, 101.76359, 56.306273], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.76359, 56.306273], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;64&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 10&quot;, &quot;id&quot;: 6483098, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 10&quot;, &quot;latitude&quot;: 56.306273, &quot;longitude&quot;: 101.76359, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.757832, 56.305514, 101.757832, 56.305514], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.757832, 56.305514], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;65&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 11&quot;, &quot;id&quot;: 7643330, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u0430\u044f, \u0434. 11&quot;, &quot;latitude&quot;: 56.305514, &quot;longitude&quot;: 101.757832, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.761344, 56.310393, 101.761344, 56.310393], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.761344, 56.310393], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;66&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 2&quot;, &quot;id&quot;: 7643340, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 2&quot;, &quot;latitude&quot;: 56.310393, &quot;longitude&quot;: 101.761344, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.762242, 56.309883, 101.762242, 56.309883], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.762242, 56.309883], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;67&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 4&quot;, &quot;id&quot;: 6482905, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 4&quot;, &quot;latitude&quot;: 56.309883, &quot;longitude&quot;: 101.762242, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.763787, 56.307591, 101.763787, 56.307591], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.763787, 56.307591], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;68&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 10&quot;, &quot;id&quot;: 6482906, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 10&quot;, &quot;latitude&quot;: 56.307591, &quot;longitude&quot;: 101.763787, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.763931, 56.306952, 101.763931, 56.306952], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.763931, 56.306952], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;69&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 12&quot;, &quot;id&quot;: 9031632, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 12&quot;, &quot;latitude&quot;: 56.306952, &quot;longitude&quot;: 101.763931, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.765045, 56.306058, 101.765045, 56.306058], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.765045, 56.306058], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;70&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 14&quot;, &quot;id&quot;: 9314793, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 14&quot;, &quot;latitude&quot;: 56.306058, &quot;longitude&quot;: 101.765045, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.764785, 56.305544, 101.764785, 56.305544], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.764785, 56.305544], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;71&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 16&quot;, &quot;id&quot;: 9314801, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 16&quot;, &quot;latitude&quot;: 56.305544, &quot;longitude&quot;: 101.764785, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [101.765656, 56.304995, 101.765656, 56.304995], &quot;geometry&quot;: {&quot;coordinates&quot;: [101.765656, 56.304995], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;72&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0411\u0440\u0430\u0442\u0441\u043a, \u0436\u0438\u043b\u043e\u0439 \u0440\u0430\u0439\u043e\u043d \u042d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a, \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, 18&quot;, &quot;id&quot;: 6685100, &quot;input_address&quot;: &quot;\u043e\u0431\u043b. \u0418\u0440\u043a\u0443\u0442\u0441\u043a\u0430\u044f, \u0433. \u0411\u0440\u0430\u0442\u0441\u043a, \u0443\u043b. \u0421\u0442\u0443\u0434\u0435\u043d\u0447\u0435\u0441\u043a\u0430\u044f, \u0434. 18&quot;, &quot;latitude&quot;: 56.304995, &quot;longitude&quot;: 101.765656, &quot;postal_code&quot;: &quot;665709&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_d0bb93933187e3476871532c15942103.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    let handleObject = feature=&gt;typeof(feature)==&#x27;object&#x27; ? JSON.stringify(feature) : feature;
+    let fields = [&quot;id&quot;, &quot;input_address&quot;, &quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let aliases = [&quot;id&quot;, &quot;input_address&quot;, &quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let table = &#x27;&lt;table&gt;&#x27; +
+        String(
+        fields.map(
+        (v,i)=&gt;
+        `&lt;tr&gt;
+            &lt;th&gt;${aliases[i]}&lt;/th&gt;
+            
+            &lt;td&gt;${handleObject(layer.feature.properties[v])}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&#x27;&#x27;))
+    +&#x27;&lt;/table&gt;&#x27;;
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>2.3 Сохраняем результат<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#final_gdf.to_file(&#39;../data/data_geocoded.gpkg&#39;) </span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>3. Функция геокодирования<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>Геокодирование – довольно частая задача, и каждый раз записывать все шаги и параметры не очень удобно. Поэтому давайте на основе нашего кода выше напишем <strong>небольшую функцию для геокодирования</strong>, которую можно будет использовать в дальнейшем.</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">geocode_addresses</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">address_column</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Геокодирование адресов через Yandex API с выводом GeoDataFrame</span>
+<span class="sd">    </span>
+<span class="sd">    :param api_key: str, API-ключ Яндекса</span>
+<span class="sd">    :param df: pandas.DataFrame, таблица с адресами</span>
+<span class="sd">    :param address_column: str, название столбца с адресами</span>
+<span class="sd">    :return: geopandas.GeoDataFrame, таблица с координатами и геометрией</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://geocode-maps.yandex.ru/1.x/&#39;</span>
+    
+    <span class="c1"># Общие параметры (без адреса)</span>
+    <span class="n">base_params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+        <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="s1">&#39;ru_RU&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">address_column</span><span class="p">]</span>
+        
+        <span class="n">params_request</span> <span class="o">=</span> <span class="n">base_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_request</span><span class="p">[</span><span class="s1">&#39;geocode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">address</span>
+        
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params_request</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing id </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">)</span><span class="si">}</span><span class="s2"> - status </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">geo</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;GeoObjectCollection&#39;</span><span class="p">][</span><span class="s1">&#39;featureMember&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;GeoObject&#39;</span><span class="p">]</span>
+                
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;Point&#39;</span><span class="p">][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                
+                <span class="n">address_meta</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;metaDataProperty&#39;</span><span class="p">][</span><span class="s1">&#39;GeocoderMetaData&#39;</span><span class="p">][</span><span class="s1">&#39;Address&#39;</span><span class="p">]</span>
+                
+                <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="p">),</span>
+                    <span class="s1">&#39;input_address&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span>
+                    <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;formatted&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="n">address_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;postal_code&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">lon</span><span class="p">,</span>
+                    <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span>
+                <span class="p">}</span>
+                
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Адрес не найден: </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="p">),</span>
+                    <span class="s1">&#39;input_address&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span>
+                    <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">}</span>
+                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ошибка запроса для id </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="p">),</span>
+                <span class="s1">&#39;input_address&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span>
+                <span class="s1">&#39;formatted_address&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;postal_code&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">}</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># задержка для предотвращения блокировки API</span>
+    
+    <span class="c1"># Создаём финальный DataFrame</span>
+    <span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    
+    <span class="c1"># Убираем строки с пустыми координатами</span>
+    <span class="n">final_df_cleaned</span> <span class="o">=</span> <span class="n">final_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># Создаём GeoDataFrame</span>
+    <span class="n">final_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+        <span class="n">final_df_cleaned</span><span class="p">,</span>
+        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">final_df_cleaned</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">final_df_cleaned</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]),</span>
+        <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span>
+    <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">final_gdf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Проверим, как работает наша функция на основе нескольких адресаов</p>
+<div class="cell tag_skip-execution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Создаем словарь с тестовыми адресами</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;Москва, Красная площадь, д.1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Санкт-Петербург, Невский проспект, д.100&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Новосибирск, Красный проспект, д.50&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Екатеринбург, улица Вайнера, д.10&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Казань, улица Баумана, д.15&#39;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Преобразуем в DataFrame</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<span class="c1"># Запусаем функцию</span>
+
+<span class="n">goeocoded</span> <span class="o">=</span> <span class="n">geocode_addresses</span><span class="p">(</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">)</span>
+
+<span class="c1">#Смотрим на результат</span>
+<span class="n">goeocoded</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing id 1 - status 200
+Processing id 2 - status 200
+Processing id 3 - status 200
+Processing id 4 - status 200
+Processing id 5 - status 200
+</pre></div>
+</div>
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_01cddd6f01b8ca4e2c975cb190b8ae2d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_01cddd6f01b8ca4e2c975cb190b8ae2d&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_01cddd6f01b8ca4e2c975cb190b8ae2d = L.map(
+                &quot;map_01cddd6f01b8ca4e2c975cb190b8ae2d&quot;,
+                {
+                    center: [57.483677, 56.63771],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_01cddd6f01b8ca4e2c975cb190b8ae2d);
+
+            
+
+        
+    
+            var tile_layer_1fa7d7678fa5c71f578abc855528fb26 = L.tileLayer(
+                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_01cddd6f01b8ca4e2c975cb190b8ae2d);
+        
+    
+            map_01cddd6f01b8ca4e2c975cb190b8ae2d.fitBounds(
+                [[55.035323, 30.355628], [59.932031, 82.919792]],
+                {}
+            );
+        
+    
+        function geo_json_829245c69deeafc9a953c24017dd9679_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_829245c69deeafc9a953c24017dd9679_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_829245c69deeafc9a953c24017dd9679_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_829245c69deeafc9a953c24017dd9679_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_829245c69deeafc9a953c24017dd9679_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        geo_json_829245c69deeafc9a953c24017dd9679.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_829245c69deeafc9a953c24017dd9679_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_829245c69deeafc9a953c24017dd9679 = L.geoJson(null, {
+                onEachFeature: geo_json_829245c69deeafc9a953c24017dd9679_onEachFeature,
+            
+                style: geo_json_829245c69deeafc9a953c24017dd9679_styler,
+                pointToLayer: geo_json_829245c69deeafc9a953c24017dd9679_pointToLayer
+        });
+
+        function geo_json_829245c69deeafc9a953c24017dd9679_add (data) {
+            geo_json_829245c69deeafc9a953c24017dd9679
+                .addData(data)
+                .addTo(map_01cddd6f01b8ca4e2c975cb190b8ae2d);
+        }
+            geo_json_829245c69deeafc9a953c24017dd9679_add({&quot;bbox&quot;: [30.355628, 55.035323, 82.919792, 59.932031], &quot;features&quot;: [{&quot;bbox&quot;: [37.61768, 55.755277, 37.61768, 55.755277], &quot;geometry&quot;: {&quot;coordinates&quot;: [37.61768, 55.755277], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u041c\u043e\u0441\u043a\u0432\u0430, \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043f\u043b\u043e\u0449\u0430\u0434\u044c, 1&quot;, &quot;id&quot;: 1, &quot;input_address&quot;: &quot;\u041c\u043e\u0441\u043a\u0432\u0430, \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043f\u043b\u043e\u0449\u0430\u0434\u044c, \u0434.1&quot;, &quot;latitude&quot;: 55.755277, &quot;longitude&quot;: 37.61768, &quot;postal_code&quot;: &quot;125009&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [30.355628, 59.932031, 30.355628, 59.932031], &quot;geometry&quot;: {&quot;coordinates&quot;: [30.355628, 59.932031], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433, \u041d\u0435\u0432\u0441\u043a\u0438\u0439 \u043f\u0440\u043e\u0441\u043f\u0435\u043a\u0442, 100&quot;, &quot;id&quot;: 2, &quot;input_address&quot;: &quot;\u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433, \u041d\u0435\u0432\u0441\u043a\u0438\u0439 \u043f\u0440\u043e\u0441\u043f\u0435\u043a\u0442, \u0434.100&quot;, &quot;latitude&quot;: 59.932031, &quot;longitude&quot;: 30.355628, &quot;postal_code&quot;: &quot;191025&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [82.919792, 55.035323, 82.919792, 55.035323], &quot;geometry&quot;: {&quot;coordinates&quot;: [82.919792, 55.035323], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;2&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a, \u041a\u0440\u0430\u0441\u043d\u044b\u0439 \u043f\u0440\u043e\u0441\u043f\u0435\u043a\u0442, 50&quot;, &quot;id&quot;: 3, &quot;input_address&quot;: &quot;\u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a, \u041a\u0440\u0430\u0441\u043d\u044b\u0439 \u043f\u0440\u043e\u0441\u043f\u0435\u043a\u0442, \u0434.50&quot;, &quot;latitude&quot;: 55.035323, &quot;longitude&quot;: 82.919792, &quot;postal_code&quot;: &quot;630091&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [60.594088, 56.836396, 60.594088, 56.836396], &quot;geometry&quot;: {&quot;coordinates&quot;: [60.594088, 56.836396], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;3&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0421\u0432\u0435\u0440\u0434\u043b\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c, \u0415\u043a\u0430\u0442\u0435\u0440\u0438\u043d\u0431\u0443\u0440\u0433, \u0443\u043b\u0438\u0446\u0430 \u0412\u0430\u0439\u043d\u0435\u0440\u0430, 10&quot;, &quot;id&quot;: 4, &quot;input_address&quot;: &quot;\u0415\u043a\u0430\u0442\u0435\u0440\u0438\u043d\u0431\u0443\u0440\u0433, \u0443\u043b\u0438\u0446\u0430 \u0412\u0430\u0439\u043d\u0435\u0440\u0430, \u0434.10&quot;, &quot;latitude&quot;: 56.836396, &quot;longitude&quot;: 60.594088, &quot;postal_code&quot;: &quot;620014&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [49.113151, 55.791754, 49.113151, 55.791754], &quot;geometry&quot;: {&quot;coordinates&quot;: [49.113151, 55.791754], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;4&quot;, &quot;properties&quot;: {&quot;formatted_address&quot;: &quot;\u0420\u043e\u0441\u0441\u0438\u044f, \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430 \u0422\u0430\u0442\u0430\u0440\u0441\u0442\u0430\u043d (\u0422\u0430\u0442\u0430\u0440\u0441\u0442\u0430\u043d), \u041a\u0430\u0437\u0430\u043d\u044c, \u0443\u043b\u0438\u0446\u0430 \u0411\u0430\u0443\u043c\u0430\u043d\u0430, 15&quot;, &quot;id&quot;: 5, &quot;input_address&quot;: &quot;\u041a\u0430\u0437\u0430\u043d\u044c, \u0443\u043b\u0438\u0446\u0430 \u0411\u0430\u0443\u043c\u0430\u043d\u0430, \u0434.15&quot;, &quot;latitude&quot;: 55.791754, &quot;longitude&quot;: 49.113151, &quot;postal_code&quot;: &quot;420111&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_829245c69deeafc9a953c24017dd9679.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    let handleObject = feature=&gt;typeof(feature)==&#x27;object&#x27; ? JSON.stringify(feature) : feature;
+    let fields = [&quot;id&quot;, &quot;input_address&quot;, &quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let aliases = [&quot;id&quot;, &quot;input_address&quot;, &quot;formatted_address&quot;, &quot;postal_code&quot;, &quot;longitude&quot;, &quot;latitude&quot;];
+    let table = &#x27;&lt;table&gt;&#x27; +
+        String(
+        fields.map(
+        (v,i)=&gt;
+        `&lt;tr&gt;
+            &lt;th&gt;${aliases[i]}&lt;/th&gt;
+            
+            &lt;td&gt;${handleObject(layer.feature.properties[v])}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&#x27;&#x27;))
+    +&#x27;&lt;/table&gt;&#x27;;
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>4. Итог<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>На примере <strong>Yandex API</strong> мы научились геокодировать адреса из таблиц, но самое главное – в целом разобрались, как устроен процесс геокодирования.
+Вы можете использовать такой подход для любых API, изменяя параметры запроса и обработку ответа в соответствии с их документацией.
+Также <strong>не забывайте проверять лимиты</strong> на количество бесплатных запросов.</p>
+<p>Успехов!</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/realWorldTasks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="task1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">I.Оценка численности населения на основе данных реформы ЖКХ</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../other/jupyterBookSetup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Интерактивные документы на основе Jupyter Book</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">0. Импортируем библиотеки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. Основы геокодирования</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1 Определение параметров для запроса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2 Отправка запроса</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.3 Извлечение ответа</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4 Создаем набор пространственных данных</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2. Геокодирование данных из таблицы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.1 Проходим по каждому адресу из таблицы</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geodataframe">2.2 Создаем GeoDataFrame на основе полученных координат</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3 Сохраняем результат</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3. Функция геокодирования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4. Итог</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bella Mironova
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright © 2025 Bella Mironova.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
